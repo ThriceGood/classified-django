@@ -76,7 +76,8 @@ def edit_advert(request, advert_id):
 def delete_advert(request, advert_id):
     if Advert.objects.filter(pk=advert_id).exists():
         ad = Advert.objects.get(pk=advert_id)
-        ad.delete()
+        if request.user == ad.user:
+            ad.delete()
 
     return HttpResponseRedirect('/adverts/list_adverts/0/')
 
