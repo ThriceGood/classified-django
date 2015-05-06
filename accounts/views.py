@@ -61,7 +61,7 @@ def view_profile(request):
         c['profile'] = profile.objects.get(user=request.user)
         return render(request, 'view_profile.html', c)
     else:
-        return HttpResponseRedirect('/accounts/edit_profile/')
+        return HttpResponseRedirect('/accounts/create_profile/')
 
 
 def public_profile(request, user_id):
@@ -74,25 +74,38 @@ def public_profile(request, user_id):
 
 
 @login_required()
+def create_profile(request):
+    if request.POST:
+        form = profileForm(request.POST)
+        if form.is_valid():
+            prof = form.save(commit=False)
+            prof.user = request.user
+            prof.save()
+            return HttpResponseRedirect('/accounts/view_profile/')
+    else:
+        form = profileForm()
+
+    return render(request, 'create_profile.html', {'form': form})
+
+
+@login_required()
 def edit_profile(request):
     c = {}
     if profile.objects.filter(user=request.user).exists():
         profModel = profile.objects.get(user=request.user)
         c['proform'] = profileForm(instance=profModel)
     else:
-        c['proform'] = profileForm()
+        return HttpResponseRedirect('/accounts/create_profile/')
 
     if request.POST:
-        proform = profileForm(request.POST, instance=profModel)
+        c['proform'] = proform = profileForm(request.POST, instance=profModel)
         if proform.is_valid():
             prof = proform.save(False)
             prof.user = request.user
             prof.save()
+            return HttpResponseRedirect('/accounts/view_profile/')
 
-        return HttpResponseRedirect('/accounts/view_profile/')
-    else:
-
-        return render(request, 'edit_profile.html', c)
+    return render(request, 'edit_profile.html', c)
 
 
 @login_required()

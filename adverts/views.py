@@ -37,7 +37,6 @@ def create_advert(request):
             ad.user = request.user
             ad.save()
             return HttpResponseRedirect('/adverts/list_adverts/0/')
-
     else:
         form = AdvertForm()
 
@@ -67,8 +66,7 @@ def edit_advert(request, advert_id):
             ad = adform.save(False)
             ad.user = request.user
             ad.save(force_update=True)
-
-        return HttpResponseRedirect('/adverts/display_advert/%s' % (advert_id))
+            return HttpResponseRedirect('/adverts/display_advert/%s' % (advert_id))
     else:
 
         return render(request, 'edit_advert.html', c)
