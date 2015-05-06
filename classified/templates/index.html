@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if user.is_authenticated %}
+<p>Welcome, {{ user.username }}</p>
+{% endif %}
+<hr>
+<br>
+
+<h4>Browse by category</h4>
+<p><a href="{% url 'adverts:list' 0 %}">All Categories</a></p>
+{% for cat in cats %}
+<p><a href="{% url 'adverts:list' cat.pk %}">{{ cat.category }}</a></p>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>My Adverts</h2>
+<hr>
+
+{% if ads %}
+{% for ad in ads %}
+<div>
+    <a href="{% url 'adverts:display' ad.id %}"><h2>{{ ad.title }}</h2></a>
+    <h4>{{ ad.category }}</h4>
+    {% if ad.image %}
+    <P><a href="{% url 'adverts:display' ad.id %}"><img src="/static/images/{{ ad.image }}" width="400" /></a></P>
+    {% endif %}
+    <p>Price: € {{ ad.price }}</p>
+    <p>Published: {{ ad.pub_date }}</p>
+    {% if user == ad.user %}
+    <p><a style="text-decoration:none;" class="btn btn-default btn-pressure btn-sensitive" href="{% url 'adverts:edit' ad.pk %}">Edit Advert</a> &nbsp <a style="text-decoration:none;" class="btn btn-default btn-pressure btn-sensitive" href="{% url 'adverts:delete' ad.pk %}" onclick="return confirm('are you sure you want to delete this item?')">Delete Advert</a></p>
+    {% endif %}
+</div>
+<br>
+{% endfor %}
+{% else %}
+<p>No adverts to display</p>
+{% endif %}
+
+<br>
+{% if ads.has_previous %}
+<a href="?page={{ ads.previous_page_number }}">previous</a>
+{% endif %}
+
+<span>Page {{ ads.number }} of {{ ads.paginator.num_pages }}</span>
+
+{% if ads.has_next %}
+<a href="?page={{ ads.next_page_number }}">next</a>
+{% endif %}
+
+
+{% endblock %}

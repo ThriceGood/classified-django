@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'classified/css/simple.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'classified/css/sidebar.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'classified/css/buttons.css' %}"/>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Classified</title>
+
+    <script type="text/javascript" src="{% static 'classified/JS/jquery-2.1.3.min.js' %}"></script>
+
+</head>
+
+<body>
+
+<main>
+
+    <!-- content -->
+    <div class="innertube"> <br><br>
+        {% block content %}
+
+        {% endblock %}
+    </div>
+
+</main>
+
+    <!--header-->
+    <div class="header">
+        <h2 style="color:#ccc;float:left;">&nbsp Classified</h2>
+        <div style="float:right;padding: 10px 30px 5px 5px;">
+            <input id="search" type="search">
+            <select>
+                <option>All</option>
+                <option>Synthesizer</option>
+                <option>Drum Machine</option>
+            </select>
+            <button onclick="search()" class="btn btn-default btn-pressure btn-sensitive">Search</button>
+        </div>
+    </div>
+
+    <!-- sidebar -->
+    <div id='cssmenu'> <br><br>
+        <ul>
+            <li><a href="{% url 'index' %}"><span>Home</span></a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'accounts:logout' %}"><span>Logout</span></a></li>
+            {% else %}
+            <li><a href="{% url 'accounts:register' %}"><span>Register</span></a></li>
+            <li><a href="{% url 'accounts:login' %}"><span>Login</span></a></li>
+            {% endif %}
+            <li><a href="{% url 'adverts:list' 0 %}"><span>Browse</span></a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'adverts:create' %}"><span>Create Advert</span></a></li>
+            <li><a href="{% url 'accounts:view_profile' %}"><span>Profile</span></a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <script>
+
+        function search() {
+
+        }
+
+    </script>
+
+</body>
+</html>

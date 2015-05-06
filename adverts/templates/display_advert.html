@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>{{ ad.title }}</h2>
+<hr>
+<br>
+{% if ad.image %}
+<P><img src="/static/images/{{ ad.image }}" width="600" /></P>
+{% endif %}
+<h4>Posted by: <a href="{% url 'accounts:public_profile' ad.user.pk %}">{{ ad.user }}</a></h4>
+<p>Location: {{ ad.location }}</p>
+<p>Asking Price: {{ ad.price }}</p>
+<p>Description: {{ ad.description }}</p>
+
+{% if ad.user == user %}
+<p><a style="text-decoration:none;" class="btn btn-default btn-pressure btn-sensitive" href="{% url 'adverts:edit' ad.pk %}">Edit Advert</a> &nbsp <a style="text-decoration:none;" class="btn btn-default btn-pressure btn-sensitive" href="{% url 'adverts:delete' ad.pk %}" onclick="return confirm('are you sure you want to delete this item?')">Delete Advert</a></p>
+{% endif %}
+
+{% if user.is_authenticated and ad.user != user %}
+<input id="offer" type="number" />
+<button class="btn btn-default btn-pressure btn-sensitive" onclick="offer()">Make offer</button>
+{% endif %}
+
+<br>
+<br>
+
+<h4>Comments</h4>
+<hr>
+
+{% for c in ad.comment_set.all %}
+
+<h5>Posted by: <a href="{% url 'accounts:public_profile' c.user.pk %}">{{ c.user }}</a> &nbsp&nbsp
+    {% if user.is_authenticated and ad.user == user and c.user != ad.user %}
+    <button class="btn btn-default btn-pressure btn-sensitive" onclick="reply('{{ c.user }}')">Reply</button>
+    {% endif %}
+</h5>
+<P>{{ c.text }}</P>
+<br>
+
+
+{% endfor %}
+
+<hr>
+<br>
+{% if user.is_authenticated %}
+<form name="comment" onsubmit="return valComment()" action="{% url 'adverts:save_comment' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="ad_id" value="{{ ad.pk }}" />
+    <label for="text">Add Comment</label>
+    <br>
+    <textarea id="text" name="text" rows="8" cols="45"></textarea>
+    <br>
+    <input class="btn btn-default btn-pressure btn-sensitive" type="submit" value="Submit">
+</form>
+{% endif %}
+
+<script>
+
+    function valComment() {
+        var x = document.forms['comment']['text'].value;
+        if (x == null || x == '') {
+            alert('you must add some text!');
+            return false;
+        }
+    }
+
+
+    function offer() {
+        o = document.getElementById('offer');
+        t = document.getElementById('text');
+        t.value = 'Offer: €' + o.value + ' ';
+        t.focus();
+    }
+
+
+    function reply(user) {
+        t = document.getElementById('text');
+        t.value = '@' + user + ': ';
+        t.focus();
+    }
+
+
+</script>
+
+{% endblock %}

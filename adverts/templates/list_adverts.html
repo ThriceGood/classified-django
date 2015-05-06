@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Adverts</h2>
+<hr>
+<br>
+
+{% for ad in ads %}
+
+<div>
+    <h2><a href="{% url 'adverts:display' ad.id %}">{{ ad.title }}</a></h2>
+    <h4>{{ ad.category }}</h4>
+    {% if ad.image %}
+    <P><a href="{% url 'adverts:display' ad.id %}"><img src="/static/images/{{ ad.image }}" width="400" /></a></P>
+    {% endif %}
+    <p>Posted by: <a href="{% url 'accounts:public_profile' ad.user.pk %}">{{ ad.user }}</a></p>
+    <p>Location: {{ ad.location }}</p>
+    <p>Asking Price: €{{ ad.price }}</p>
+    <p>Published: {{ ad.pub_date }}</p>
+</div>
+<br>
+
+{% endfor %}
+
+<br>
+{% if ads.has_previous %}
+<a href="?page={{ ads.previous_page_number }}">previous</a>
+{% endif %}
+
+<span>Page {{ ads.number }} of {{ ads.paginator.num_pages }}</span>
+
+{% if ads.has_next %}
+<a href="?page={{ ads.next_page_number }}">next</a>
+{% endif %}
+
+
+{% endblock %}
+

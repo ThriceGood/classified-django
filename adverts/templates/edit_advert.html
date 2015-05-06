@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Edit Advert</h2>
+<hr>
+<br>
+{% if image %}
+<P><img src="/static/images/{{ image }}" width="300" /></P>
+{% endif %}
+
+<form action="{% url 'adverts:edit' ad_id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ ad.as_p }}
+    <br>
+    <input class="btn btn-default btn-pressure btn-sensitive" type="submit" value="Save Advert">
+</form>
+
+{% endblock %}

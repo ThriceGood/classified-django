@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>{{ profile.user }}</h2>
+<hr>
+
+<br>
+<p>Username:  <b>{{ profile.user }}</b></p>
+<p>First Name:  <b>{{ profile.first_name }}</b></p>
+<p>Last Name:  <b>{{ profile.last_name }}</b></p>
+<p>Date of Birth:  <b>{{ profile.DOB }}</b></p>
+<p>Age:  <b>{{ profile.age }}</b></p>
+<p>Email:  <b>{{ profile.public_email }}</b></p>
+<p>County:  <b>{{ profile.county }}</b></p>
+<p>Town:  <b>{{ profile.town }}</b></p>
+<br>
+
+{% if profile.user %}
+<p><a href="{% url 'adverts:user_adverts' profile.user.pk %}">View {{ profile.user }}'s adverts</a></p>
+{% endif %}
+
+<br>
+
+{% if user.is_authenticated %}
+<form name="message" onsubmit="return valMessage()" action="{% url 'accounts:send_message' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" value="{{user_id}}" name="recipient">
+    <label for="text">Send Personal Message</label>
+    <br>
+    <textarea id="text" name="text" rows="8" cols="45"></textarea>
+    <br>
+    <input class="btn btn-default btn-pressure btn-sensitive" type="submit" value="Send"/>
+</form>
+{% endif %}
+
+<script>
+
+    function valMessage() {
+        var x = document.forms['message']['text'].value;
+        if (x == null || x == '') {
+            alert('you must add some text!');
+            return false;
+        }
+    }
+
+</script>
+
+{% endblock %}
