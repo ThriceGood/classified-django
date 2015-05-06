@@ -64,10 +64,10 @@ WSGI_APPLICATION = 'classified.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
-        'NAME': 'classified',
-        'USER': 'django',
-        'PASSWORD': 'django',
-        'HOST': '',
+        'NAME': 'thricegood$classified',
+        'USER': 'thricegood',
+        'PASSWORD': 'djangoclassified',
+        'HOST': 'mysql.server',
         'PORT': '',
         'OPTIONS': {
             'autocommit': True,
