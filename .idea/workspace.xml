@@ -40,7 +40,7 @@
         <entry file="file://$PROJECT_DIR$/accounts/templates/public_profile.html">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.5741556" vertical-offset="0" max-vertical-offset="901">
-              <caret line="23" column="54" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
+              <caret line="23" column="45" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -717,7 +717,7 @@
     <entry file="file://$PROJECT_DIR$/accounts/templates/public_profile.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5741556" vertical-offset="0" max-vertical-offset="901">
-          <caret line="23" column="54" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
+          <caret line="23" column="45" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
           <folding />
         </state>
       </provider>

@@ -21,7 +21,7 @@
 
 <br>
 
-{% if user.is_authenticated and user != profle.user %}
+{% if user.is_authenticated and user != profile.user %}
 <form name="message" onsubmit="return valMessage()" action="{% url 'accounts:send_message' %}" method="post">
     {% csrf_token %}
     <input type="hidden" value="{{user_id}}" name="recipient">
