@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
 
     <link rel="stylesheet" type="text/css" href="{% static 'classified/css/simple.css' %}"/>
@@ -33,13 +33,16 @@
             <h2 style="color:#ccc;float:left;">&nbsp Classified</h2>
         </a>
         <div style="float:right;padding: 10px 30px 5px 5px;">
-            <input id="search" type="search">
-            <select>
-                <option>All</option>
-                <option>Synthesizer</option>
-                <option>Drum Machine</option>
-            </select>
-            <button onclick="search()" class="btn btn-default btn-pressure btn-sensitive">Search</button>
+            <form method="post" action="{% url 'adverts:search' %}">
+                {% csrf_token %}
+                <input name="query" type="search">
+                <select name="cat">
+                    <option value="0">All</option>
+                    <option value="1">Synthesizer</option>
+                    <option value="2">Drum Machine</option>
+                </select>
+                <input type="submit" class="btn btn-default btn-pressure btn-sensitive" value="Search" />
+            </form>
         </div>
     </div>
 
@@ -60,15 +63,6 @@
             {% endif %}
         </ul>
     </div>
-
-
-    <script>
-
-        function search() {
-
-        }
-
-    </script>
 
 </body>
 </html>

@@ -116,6 +116,30 @@ def save_comment(request):
     return HttpResponseRedirect('/adverts/display_advert/%s' % (request.POST['ad_id']))
 
 
-def search(request, query):
-    return HttpResponse(query)
+def search(request):
+    c = {}
+    if request.POST:
+        cat = int(request.POST['cat'])
+        query = request.POST['query']
+        if cat == 0:
+            ads = Advert.objects.filter(title__icontains=query).order_by('-pub_date')
+        else:
+            ads = Advert.objects.filter(title__icontains=query, category=cat)
+
+        paginator = Paginator(ads, 5, allow_empty_first_page=True)
+        page = request.GET.get('page')
+
+        try:
+            c['ads'] = paginator.page(page)
+        except PageNotAnInteger:
+            c['ads'] = paginator.page(1)
+        except EmptyPage:
+            c['ads'] = paginator.page(paginator.num_pages)
+
+        if len(c['ads']) == 0:
+            c['no_results'] = 'No search results found'
+
+        return render(request, 'list_adverts.html', c)
+
+
 

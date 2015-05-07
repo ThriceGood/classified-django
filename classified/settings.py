@@ -65,9 +65,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
         'NAME': 'thricegood$classified',
+        # 'NAME': 'classified',
         'USER': 'thricegood',
+        # 'USER': 'django',
         'PASSWORD': 'djangoclassified',
+        # 'PASSWORD': 'django',
         'HOST': 'mysql.server',
+        # 'HOST': '',
         'PORT': '',
         'OPTIONS': {
             'autocommit': True,

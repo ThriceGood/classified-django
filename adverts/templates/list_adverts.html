@@ -5,6 +5,14 @@
 <hr>
 <br>
 
+{% if no_results %}
+<script>
+$(function() {
+    alert('{{ no_results }}');
+});
+</script>
+{% endif %}
+
 {% for ad in ads %}
 
 <div>
