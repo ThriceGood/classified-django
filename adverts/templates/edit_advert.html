@@ -4,10 +4,12 @@
 <h2>Edit Advert</h2>
 <hr>
 <br>
+<!--if an image is passed over dispaly it-->
 {% if image %}
 <P><img src="/static/images/{{ image }}" width="300" /></P>
 {% endif %}
 
+<!--edit form, rendered by template language-->
 <form action="{% url 'adverts:edit' ad_id %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ ad.as_p }}

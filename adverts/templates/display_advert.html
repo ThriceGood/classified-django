@@ -2,21 +2,29 @@
 
 {% block content %}
 
+<!--display the advert-->
 <h2>{{ ad.title }}</h2>
 <hr>
 <br>
+<!--if there is an image, show it-->
 {% if ad.image %}
 <P><img src="/static/images/{{ ad.image }}" width="600" /></P>
 {% endif %}
+<!--link to posters profile-->
 <h4>Posted by: <a href="{% url 'accounts:public_profile' ad.user.pk %}">{{ ad.user }}</a></h4>
 <p>Location: {{ ad.location }}</p>
 <p>Asking Price: {{ ad.price }}</p>
 <p>Description: {{ ad.description }}</p>
 
+<!--if the ad's user is equal to the logged in user then display edit and delete links-->
 {% if ad.user == user %}
-<p><a style="text-decoration:none;" class="btn btn-default btn-pressure btn-sensitive" href="{% url 'adverts:edit' ad.pk %}">Edit Advert</a> &nbsp <a style="text-decoration:none;" class="btn btn-default btn-pressure btn-sensitive" href="{% url 'adverts:delete' ad.pk %}" onclick="return confirm('are you sure you want to delete this item?')">Delete Advert</a></p>
+<p>
+    <a style="text-decoration:none;" class="btn btn-default btn-pressure btn-sensitive" href="{% url 'adverts:edit' ad.pk %}">Edit Advert</a> &nbsp
+    <a style="text-decoration:none;" class="btn btn-default btn-pressure btn-sensitive" href="{% url 'adverts:delete' ad.pk %}" onclick="return confirm('are you sure you want to delete this item?')">Delete Advert</a>
+</p>
 {% endif %}
 
+<!--if a user is logged in and is not the ad's user then allow user to make an offer-->
 {% if user.is_authenticated and ad.user != user %}
 <input id="offer" type="number" />
 <button class="btn btn-default btn-pressure btn-sensitive" onclick="offer()">Make offer</button>
@@ -25,25 +33,29 @@
 <br>
 <br>
 
+<!--comment sction-->
 <h4>Comments</h4>
 <hr>
 
+<!--display all comments-->
 {% for c in ad.comment_set.all %}
-
 <h5>Posted by: <a href="{% url 'accounts:public_profile' c.user.pk %}">{{ c.user }}</a> &nbsp&nbsp
+    <!--displays a reply button if the logged in user owns the ad, owner can not reply to their own comments-->
     {% if user.is_authenticated and ad.user == user and c.user != ad.user %}
+    <!--on click, call the reply JS function and pass over commenters id-->
     <button class="btn btn-default btn-pressure btn-sensitive" onclick="reply('{{ c.user }}')">Reply</button>
     {% endif %}
 </h5>
 <P>{{ c.text }}</P>
 <br>
-
-
 {% endfor %}
 
 <hr>
 <br>
+
+<!--if user is logged in then display the comment box-->
 {% if user.is_authenticated %}
+<!--comment form posted to save_comment function in views.py if validation function does not return false-->
 <form name="comment" onsubmit="return valComment()" action="{% url 'adverts:save_comment' %}" method="post">
     {% csrf_token %}
     <input type="hidden" name="ad_id" value="{{ ad.pk }}" />
@@ -57,6 +69,7 @@
 
 <script>
 
+    // check to see that the comment is not empty
     function valComment() {
         var x = document.forms['comment']['text'].value;
         if (x == null || x == '') {
@@ -65,7 +78,9 @@
         }
     }
 
-
+    // when user clicks offer their offer text gets set in the
+    // comment box with 'Offer: €' prepended to it
+    // focus shifts to comment box so user can start typing
     function offer() {
         o = document.getElementById('offer');
         t = document.getElementById('text');
@@ -73,7 +88,8 @@
         t.focus();
     }
 
-
+    // when user click reply '@[username]:' is set in the comment box
+    // and focus shifts so user can start typing
     function reply(user) {
         t = document.getElementById('text');
         t.value = '@' + user + ': ';

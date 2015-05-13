@@ -5,6 +5,7 @@
 <hr>
 <br>
 
+<!--create profile form rendered by template language-->
 <form action="{% url 'accounts:create_profile' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}

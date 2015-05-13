@@ -1,13 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<!--display user profile info-->
 <h2>My Profile</h2>
 <hr>
-<!--broke when user tries to view own profile and they dont have one-->
-<!--have a public profile and personol profile page!-->
-{% if profile.user == user %}
+
 <p><a href="{% url 'accounts:edit_profile' %}">Edit Profile</a></p>
-{% endif %}
 
 <br>
 <p>Username: <b>{{ profile.user }}</b></p>

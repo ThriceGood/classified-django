@@ -18,7 +18,7 @@
 
 <main>
 
-    <!-- content -->
+    <!-- content, where templates appear -->
     <div class="innertube"> <br><br>
         {% block content %}
 
@@ -32,6 +32,7 @@
         <a href="https://github.com/ThriceGood/classified-django">
             <h2 style="color:#ccc;float:left;">&nbsp Classified</h2>
         </a>
+        <!--search bar-->
         <div style="float:right;padding: 10px 30px 5px 5px;">
             <form method="post" action="{% url 'adverts:search' %}">
                 {% csrf_token %}
@@ -50,6 +51,7 @@
     <div id='cssmenu'> <br><br>
         <ul>
             <li><a href="{% url 'index' %}"><span>Home</span></a></li>
+            <!--if user is logged in show logout link, else show register and login link-->
             {% if user.is_authenticated %}
             <li><a href="{% url 'accounts:logout' %}"><span>Logout</span></a></li>
             {% else %}
@@ -57,6 +59,7 @@
             <li><a href="{% url 'accounts:login' %}"><span>Login</span></a></li>
             {% endif %}
             <li><a href="{% url 'adverts:list' 0 %}"><span>Browse</span></a></li>
+            <!--if user is logged in show create advert and profile link-->
             {% if user.is_authenticated %}
             <li><a href="{% url 'adverts:create' %}"><span>Create Advert</span></a></li>
             <li><a href="{% url 'accounts:view_profile' %}"><span>Profile</span></a></li>

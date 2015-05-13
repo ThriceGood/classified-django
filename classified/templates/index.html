@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 
+<!--if user is logged in then welcome them-->
 {% if user.is_authenticated %}
 <p>Welcome, {{ user.username }}</p>
 {% endif %}
 <hr>
 <br>
 
+<!--links to adverts listings by category-->
 <h4>Browse by category</h4>
 <p><a href="{% url 'adverts:list' 0 %}">All Categories</a></p>
+<!--categories are passed in, loop creates link for each one-->
 {% for cat in cats %}
 <p><a href="{% url 'adverts:list' cat.pk %}">{{ cat.category }}</a></p>
 {% endfor %}

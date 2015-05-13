@@ -2,9 +2,11 @@
 
 {% block content %}
 
+<!--display user adverts-->
 <h2>My Adverts</h2>
 <hr>
 
+<!--if there are any ads then dispaly them-->
 {% if ads %}
 {% for ad in ads %}
 <div>
@@ -15,8 +17,12 @@
     {% endif %}
     <p>Price: € {{ ad.price }}</p>
     <p>Published: {{ ad.pub_date }}</p>
+    <!--if logged in user is owner of ad then display edit and delete links-->
     {% if user == ad.user %}
-    <p><a style="text-decoration:none;" class="btn btn-default btn-pressure btn-sensitive" href="{% url 'adverts:edit' ad.pk %}">Edit Advert</a> &nbsp <a style="text-decoration:none;" class="btn btn-default btn-pressure btn-sensitive" href="{% url 'adverts:delete' ad.pk %}" onclick="return confirm('are you sure you want to delete this item?')">Delete Advert</a></p>
+    <p>
+        <a style="text-decoration:none;" class="btn btn-default btn-pressure btn-sensitive" href="{% url 'adverts:edit' ad.pk %}">Edit Advert</a> &nbsp
+        <a style="text-decoration:none;" class="btn btn-default btn-pressure btn-sensitive" href="{% url 'adverts:delete' ad.pk %}" onclick="return confirm('are you sure you want to delete this item?')">Delete Advert</a>
+    </p>
     {% endif %}
 </div>
 <br>
@@ -25,6 +31,7 @@
 <p>No adverts to display</p>
 {% endif %}
 
+<!--pagination-->
 <br>
 {% if ads.has_previous %}
 <a href="?page={{ ads.previous_page_number }}">previous</a>

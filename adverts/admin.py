@@ -14,6 +14,7 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ('user', 'advert')
 
 
+# register your models with the admin section
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Advert, AdvertAdmin)
 admin.site.register(Comment, CommentAdmin)

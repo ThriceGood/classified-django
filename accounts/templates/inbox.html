@@ -6,21 +6,17 @@
 <p><a href="{% url 'accounts:outbox' %}">View sent messages</a></p>
 <br>
 
+<!--if there are any messages then display them-->
 {% if messages %}
-
 {% for m in messages %}
 <p><h4>Message from:  <a href="{% url 'accounts:public_profile' m.sender.pk %}">{{ m.sender }}</a></h4></p>
 <p>Sent on:  {{ m.sent_date }}</p>
 <p>{{ m.text }}</p>
 <br>
 {% endfor %}
-
+<!--else no messages-->
 {% else %}
-
 <p>No messages to display</p>
-
 {% endif %}
-
-
 
 {% endblock %}

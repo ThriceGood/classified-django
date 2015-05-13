@@ -5,6 +5,7 @@
 <hr>
 <br>
 
+<!--advert creation form, template language renders form based on passed in form var-->
 <form action="{% url 'adverts:create' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}

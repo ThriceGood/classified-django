@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<!--display users profile data-->
 <h2>{{ profile.user }}</h2>
 <hr>
 
@@ -21,7 +22,9 @@
 
 <br>
 
+<!--if user is authed and is not the owner of the profile then they can send the profile owner a message-->
 {% if user.is_authenticated and user != profile.user %}
+<!--form submits if message validation function does not return false-->
 <form name="message" onsubmit="return valMessage()" action="{% url 'accounts:send_message' %}" method="post">
     {% csrf_token %}
     <input type="hidden" value="{{user_id}}" name="recipient">
@@ -35,6 +38,7 @@
 
 <script>
 
+    // validates message, message must have text, if not then alerts user
     function valMessage() {
         var x = document.forms['message']['text'].value;
         if (x == null || x == '') {

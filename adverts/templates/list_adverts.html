@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<!--list all adverts-->
 <h2>Adverts</h2>
 <hr>
 <br>
 
+<!--if the no_results var is passed over, then alert the fact-->
 {% if no_results %}
 <script>
 $(function() {
@@ -13,12 +15,14 @@ $(function() {
 </script>
 {% endif %}
 
+<!--display all passed over ads, paginator handles pagination-->
 {% for ad in ads %}
-
 <div>
+    <!--link to display specific advert-->
     <h2><a href="{% url 'adverts:display' ad.id %}">{{ ad.title }}</a></h2>
     <h4>{{ ad.category }}</h4>
     {% if ad.image %}
+    <!--image is link to display specific advert-->
     <P><a href="{% url 'adverts:display' ad.id %}"><img src="/static/images/{{ ad.image }}" width="400" /></a></P>
     {% endif %}
     <p>Posted by: <a href="{% url 'accounts:public_profile' ad.user.pk %}">{{ ad.user }}</a></p>
@@ -27,10 +31,11 @@ $(function() {
     <p>Published: {{ ad.pub_date }}</p>
 </div>
 <br>
-
 {% endfor %}
 
 <br>
+<!--various variables created by the paginator to be used to create the page changing links-->
+<!--paginator creates: has_previous, previous_page_number, paginator.num_pages, has_next -->
 {% if ads.has_previous %}
 <a href="?page={{ ads.previous_page_number }}">previous</a>
 {% endif %}

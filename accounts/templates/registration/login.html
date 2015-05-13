@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 
+<!--display errors if any-->
 {% if form.errors %}
     <p>sorry sbout that...</p>
 {% endif %}
 
+<!--login form, username and password-->
 <form action="/accounts/auth/" method="post">
     {% csrf_token %}
     <label for="username">User name:</label>
