@@ -7,7 +7,7 @@ class profileAdmin(admin.ModelAdmin):
 
 
 class PersonalMessageAdmin(admin.ModelAdmin):
-    list_display = ('sender', 'recipient', 'text', 'send_date')
+    list_display = ('sender', 'recipient', 'text', 'sent_date')
 
 
 # register your models with the admin section
