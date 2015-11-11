@@ -2,6 +2,9 @@
 classified adverts website built with Django
 
 
+http://thricegood.pythonanywhere.com/
+
+
 features include:
 
 CRUD your adverts,
