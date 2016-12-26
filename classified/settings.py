@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'xxxxx'
+SECRET_KEY = 'slkfjhgslkjfgskfj54564y43he'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -64,15 +64,11 @@ WSGI_APPLICATION = 'classified.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
-        'NAME': 'xxxxx',
-        # 'NAME': 'classified',
-        'USER': 'xxxxx',
-        # 'USER': 'django',
-        'PASSWORD': 'xxxxx',
-        # 'PASSWORD': 'django',
-        'HOST': 'xxxxx',
-        # 'HOST': '',
-        'PORT': '',
+        'NAME': 'classifiedadverts',
+        'USER': 'classifiedadvert',
+        'PASSWORD': 'pythonanywhere',
+        'HOST': 'classifiedadverts.mysql.pythonanywhere-services.com',
+        'PORT': '3306',
         'OPTIONS': {
             'autocommit': True,
         }
